@@ -1,1 +1,6 @@
-# DSA-learning Start learning from tomorrow
+# DSA-learning Series #100DaysOfCode
+Day-1
+Searching;
+    ->linearSearch
+    ->binarySearch-Iterative
+    ->binarySearch-Recursive
