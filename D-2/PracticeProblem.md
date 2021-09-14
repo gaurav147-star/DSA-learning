@@ -1,4 +1,6 @@
-# [Basic Practice Problem](https://www.codechef.com/CCSTART2/)
+# Basic Practice Problem
+
+### For practice problem [Click](https://www.codechef.com/CCSTART2/)
 
 ## Buy Please
 
