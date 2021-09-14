@@ -221,3 +221,83 @@ int main()
 ```
 
 </details>
+
+## Valid Triangle Or Not
+
+<details>
+<summary>Code</summary>
+
+```cpp
+#include <iostream>
+using namespace std;
+int main()
+{
+    int a, b, c;
+    cin >> a >> b >> c;
+    if (a + b > c && b + c > a && c + a > b)
+    {
+        cout << "YES" << endl;
+    }
+    else
+    {
+        cout << "NO" << endl;
+    }
+}
+```
+
+</details>
+
+## Reverse Star Pattern
+
+<details>
+<summary>Code</summary>
+
+```cpp
+#include <iostream>
+using namespace std;
+int main()
+{
+    int N;
+    cin >> N;
+    for (int i = N; i > 0; i--)
+    {
+        for (int j = 0; j <= N; j++)
+        {
+            if (j >= i)
+            {
+                cout << "*";
+            }
+            else
+            {
+                cout << " ";
+            }
+        }
+        cout << endl;
+    }
+}
+```
+
+</details>
+
+## Add Natural Numbers
+
+<details>
+<summary>Code</summary>
+
+```cpp
+#include <iostream>
+using namespace std;
+int main()
+{
+    long int n;
+    cin >> n;
+    long int sum = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        sum += i;
+    }
+    cout << sum << endl;
+}
+```
+
+</details>
