@@ -303,3 +303,24 @@ int main()
 ```
 
 </details>
+
+## Sum Is Everywhere
+
+<details>
+<summary>Code</summary>
+
+```cpp
+#include <iostream>
+using namespace std;
+int main()
+{
+    long int N;
+    cin >> N;
+    long int sum_odd = N * N;
+    long int sum_even = N * (N + 1);
+    cout << sum_odd << " " << sum_even << endl;
+}
+
+```
+
+</details>
