@@ -21,4 +21,10 @@ int main()
         }
         cout << endl;
     }
+
+    for (int z = 0; z < n; z++)
+    {
+        delete[] p[z];
+    }
+    delete[] p;
 }
