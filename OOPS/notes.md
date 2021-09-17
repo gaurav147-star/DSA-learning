@@ -175,32 +175,39 @@ object. These are also called mutator function.
 
 **Example code :**
 
-```
-class Student {
-int rollno;
-char name[20];
-floa t	marks;
-char grade;
-public :
-int getRollno( ){
-return rollno;
-}
-int getMarks( ){
-```
+```cpp
+class Student
+{
+    int rollno;
+    char name[20];
+    float marks;
+    char grade;
 
-```
-return marks;
-}
-```
+public:
+    int getRollno()
+    {
+        return rollno;
+    }
+    int getMarks()
+    {
 
-**void** setGrade( ){
-if (marks > 90) grade ='A';;
-else if (marks > 80) grade = 'B';
-else if (marks > 70) grade = 'C';
-else if (marks > 60) grade = 'D';
-else grade = 'E';
-}
+        return marks;
+    }
+    void setGrade()
+    {
+        if (marks > 90)
+            grade = 'A';
+        else if (marks > 80)
+            grade = 'B';
+        else if (marks > 70)
+            grade = 'C';
+        else if (marks > 60)
+            grade = 'D';
+        else
+            grade = 'E';
+    }
 };
+```
 
 getRollno( ) and getMarks( ) are getter functions and setGrade( ) is a setter function.
 
@@ -208,48 +215,45 @@ getRollno( ) and getMarks( ) are getter functions and setGrade( ) is a setter fu
 
 We can also define member functions outside the class using scope resolution
 operator :: .
-For example lets move the definition of the two functions defined in student class
+For example lets move the definition of the two functions defined in student class above outside the class.
 
-## above outside the class.
+```cpp
+class Student
+{
+    int rollno;
+    char name[20];
+    floa t marks;
+    char grade;
 
-```
-class Student {
-int rollno;
-char name[20];
-floa t	marks;
-char grade;
-public :
-int getRollno( );
-```
+public:
+    int getRollno();
 
-```
-int getMarks( );
-```
+    int getMarks();
 
-**void ** setGrade( ){
-if (marks > 90) grade ='A';;
-else if (marks > 80) grade = 'B';
-else if (marks > 70) grade = 'C';
-else if (marks > 60) grade = 'D';
-else grade = 'E';
-}
+    void setGrade()
+    {
+        if (marks > 90)
+            grade = 'A';
+        ;
+        else if (marks > 80) grade = 'B';
+        else if (marks > 70) grade = 'C';
+        else if (marks > 60) grade = 'D';
+        else grade = 'E';
+    }
 };
 
-```
-int Student::getMarks(){
-return	marks;
+int Student::getMarks()
+{
+    return marks;
+}
+
+int Student::getRollNo()
+{
+    return rollNo;
 }
 ```
 
-```
-int Student::getRollNo(){
-return	rollNo;
-}
-```
-
-We can access member functions in similar manner via an object of class Student
-
-## and using dot operator.
+We can access member functions in similar manner via an object of class Student and using dot operator.
 
 ## Constructors
 
@@ -277,19 +281,23 @@ constructor simply means that a program can declare instances of the class.
 
 **Example code :**
 
-```
-class Sum {
-int a,	b;
-public :
-int getSum(){
-```
+```cpp
+class Sum
+{
+    int a, b;
 
-return a + b;
+public:
+    int getSum()
+    {
+
+        return a + b;
+    }
+};
+int main()
+{
+    Sum obj; //implicit default constructor invoked
 }
-} ;
-**int** main() {
-Sum obj; //implicit default constructor invoked
-}
+```
 
 Whenever an object of person class is created implicit default constructor is
 invoked automatically that assigns memory to its data members, i.e., **_name_** and
@@ -300,23 +308,32 @@ invoked automatically that assigns memory to its data members, i.e., **_name_** 
 One can define their own default constructor. When a user-defined default
 constructor is created, the compiler's implicit default constructor is overshadowed.
 
-**Example code :
-class** Sum {
-**int** a, b;
-**public** :
-Sum( ) { // user-defined default constructor
-cout << "constructor invoked";
-a = 10;
-b = 20;
+\*\*Example code :
+
+```cpp
+class Sum
+{
+    int a, b;
+
+public:
+    Sum()
+    { // user-defined default constructor
+        cout << "constructor invoked";
+        a = 10;
+        b = 20;
+    }
+    int getSum()
+    {
+        return a + b;
+    }
+};
+int main()
+{
+    Sum obj; //explicitly defined default constructor invoked
 }
-**int** getSum(){
-return a + b;
-}
-} ;
-**int** main() {
-Sum obj; //explicitly defined default constructor invoked
-}
-**Output :**
+```
+
+Output :
 
 constructor invoked
 
@@ -330,20 +347,28 @@ The constructors that can take arguments are called parameterized constructor.
 
 **Example code :**
 
-**class** Sum {
-**int** a, b;
-**public** :
-Sum(int num1, int num2 ) { // parameterized constructor
-a = num1;
-b = num2;
+```cpp
+class Sum
+{
+    int a, b;
+
+public:
+    Sum(int num1, int num2)
+    { // parameterized constructor
+        a = num1;
+        b = num2;
+    }
+    int getSum()
+    {
+        return a + b;
+    }
+};
+int main()
+{
+    Sum obj(4, 2); //parametrized constructor invoked
 }
-**int** getSum(){
-return a + b;
-}
-} ;
-**int** main() {
-Sum obj(4, 2); //parametrized constructor invoked
-}
+```
+
 Declaring a constructor with arguments hides the default constructor. Hence, the
 object declaration statement such as
 Person obj;
@@ -370,24 +395,33 @@ destructor frees up the memory area of the object that is no longer accessible.
 
 **Example code:**
 
-**class** Sum {
-**int** a, b;
-**public** :
-Sum(int num1, int num2 ) { // parameterized constructor
-cout << "Constructor at work" << endl;
-a = num1;
-b = num2;
+```cpp
+class Sum
+{
+    int a, b;
+
+public:
+    Sum(int num1, int num2)
+    { // parameterized constructor
+        cout << "Constructor	at	work" << endl;
+        a = num1;
+        b = num2;
+    }
+    ~Sum()
+    { //destructor
+        cout << "Destructor	at	work" << endl;
+    }
+    int getSum()
+    {
+        return a + b;
+    }
+};
+int main()
+{
+    Sum obj(4, 6);
 }
-~Sum( ){ //destructor
-cout<< "Destructor at work" << endl;
-}
-**int** getSum(){
-return a + b;
-}
-}
-**int** main() {
-Sum obj(4, 6);
-}
+```
+
 **Output :**
 Constructor at work
 Destructor at work
@@ -416,17 +450,23 @@ argument to all the member functions.
 
 **Example code:**
 
-**class** Sum {
-**int** a, b;
-**public** :
-Sum(int a, int b ) {
-this->a = a;
-this->b = b;
+```cpp
+class Sum
+{
+    int a, b;
+
+public:
+    Sum(int a, int b)
+    {
+        this->a = a;
+        this->b = b;
+    }
+    int getSum()
+    {
+        return a + b;
+    }
 }
-**int** getSum(){
-return a + b;
-}
-}
+```
 
 In the constructor of the Sum class, since the data members and data members
 have the same name, this keyword is used to differentiate between the two.
