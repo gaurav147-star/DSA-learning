@@ -25,7 +25,7 @@ public:
         this->age = s.age;
         //this->name =s.name;     //Shallo Copy
 
-        //Deep copy
+        //Deep copy             
         this->name = new char[strlen(s.name) + 1];
         strcpy(this->name, s.name);
     }
