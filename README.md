@@ -21,3 +21,6 @@
 
 ### Day-6
  - Implemented constructor on some basic problems.
+
+### Day-7
+ - Implemented some concept of oops in some basic problems
