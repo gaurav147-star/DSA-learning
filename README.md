@@ -24,3 +24,5 @@
 
 ### Day-7
  - Implemented some concept of oops in some basic problems
+### Day-8
+ - Started linked list 
