@@ -35,13 +35,13 @@ int main()
     Node n4(4);
     Node n5(5);
 
-    n1.next = &n2;
-    n2.next = &n3;
-    n3.next = &n4;
-    n4.next = &n5;
-    // n5.next = NULL;
+    // n1.next = &n2;
+    // n2.next = &n3;
+    // n3.next = &n4;
+    // n4.next = &n5;
+    // // n5.next = NULL;
 
-    print(head);
+    // print(head);
 
     //cout << n1.data << " " << n2.data << endl;
     //cout << head->data << endl;
@@ -53,4 +53,12 @@ int main()
     //     Node *n4 = new Node(20);
     //     n3->next = n4;
     //
+    Node *node1 = new Node(10);
+    Node *node2 = new Node(20);
+    Node *node3 = new Node(20);
+    Node *node4 = new Node(20);
+    node1->next = node2;
+    node2->next = node3;
+    node3->next = node4;
+    print(node2);
 }
