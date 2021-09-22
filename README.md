@@ -28,3 +28,5 @@
  - Started linked list 
  ### Day-9
  - Insertion and deletion in linked list 
+ ### Day-10
+ - Practice some problems on linked list

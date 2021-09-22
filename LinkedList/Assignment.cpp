@@ -52,18 +52,6 @@ int getCount(Node *head)
     return count;
 }
 
-int getCountRecursively(Node *head)
-{
-    if (head == NULL)
-    {
-        return 0;
-    }
-    else
-    {
-        return 1 + getCountRecursively(head->next);
-    }
-}
-
 int getIndexData(Node *head, int Index)
 {
     Node *temp = head;
@@ -137,6 +125,75 @@ Node *deleteNode(Node *head, int Index)
     return head;
 }
 
+void eliminateDuplicate(Node *head)
+{
+    Node *t1 = head;
+    Node *next_next;
+
+    if (t1 == NULL)
+    {
+        return;
+    }
+    while (t1->next != NULL)
+    {
+
+        // 1 2 2 2 3 4 4
+        if (t1->data == t1->next->data)
+        {
+
+            next_next = t1->next->next;
+            free(t1->next);
+            t1->next = next_next;
+        }
+        else
+        {
+
+            t1 = t1->next;
+        }
+    }
+}
+
+// void updateList(Node *head, int m)
+// {
+
+//     // Total nodes in the list
+//     int count = getCount(head);
+
+//     if (count != m && m < count)
+//     {
+
+//         // Count of nodes to be skipped
+//         // from the beginning
+//         int skip = count - m;
+//         Node *prev = NULL;
+//         Node *curr = head;
+
+//         // Skip the nodes
+//         while (skip > 0)
+//         {
+//             prev = curr;
+//             curr = curr->next;
+//             skip--;
+//         }
+
+//         // Change the pointers
+//         prev->next = NULL;
+//         Node *tempHead = head;
+//         head = curr;
+
+//         // Find the last node
+//         while (curr->next != NULL)
+//             curr = curr->next;
+
+//         // Connect it to the head
+//         // of the sub list
+//         curr->next = tempHead;
+//     }
+
+//     // Print the updated list
+//     print(head);
+// }
+
 void print(Node *head)
 {
     Node *temp = head;
@@ -181,5 +238,7 @@ int main()
     // //cout << getCount(head) << endl;
     // //cout << getIndexData(head, 3) << endl;
 
-    Search(head, 15);
+    // Search(head, 15);
+    eliminateDuplicate(head);
+    print(head);
 }
