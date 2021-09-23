@@ -30,3 +30,8 @@
  - Insertion and deletion in linked list 
  ### Day-10
  - Practice some problems on linked list
+ ### Day-11
+ - Sorting
+    - Selection Sort
+    - Insertion Sort
+    - Bubble Sort
