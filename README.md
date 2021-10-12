@@ -35,3 +35,5 @@
     - Selection Sort
     - Insertion Sort
     - Bubble Sort
+### Day-12
+ - Revise linked list and solve some problems
