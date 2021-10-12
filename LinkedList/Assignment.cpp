@@ -40,6 +40,7 @@ Node *takeInput_Better()
     return head;
 }
 
+//count the node of the linked list
 int getCount(Node *head)
 {
     int count = 0;
@@ -52,6 +53,7 @@ int getCount(Node *head)
     return count;
 }
 
+//get the data of the particular index
 int getIndexData(Node *head, int Index)
 {
     Node *temp = head;
@@ -125,6 +127,7 @@ Node *deleteNode(Node *head, int Index)
     return head;
 }
 
+//Eliminate the duplicate in the linked list
 void eliminateDuplicate(Node *head)
 {
     Node *t1 = head;
@@ -153,47 +156,49 @@ void eliminateDuplicate(Node *head)
     }
 }
 
-// void updateList(Node *head, int m)
-// {
+//Append last n node to first
+Node *updateList(Node *head, int m)
+{
 
-//     // Total nodes in the list
-//     int count = getCount(head);
+    // Total nodes in the list
+    int length = getCount(head);
 
-//     if (count != m && m < count)
-//     {
+    if (length != m && m < length)
+    {
 
-//         // Count of nodes to be skipped
-//         // from the beginning
-//         int skip = count - m;
-//         Node *prev = NULL;
-//         Node *curr = head;
+        // Count of nodes to be skipped
+        // from the beginning
+        int skip = length - m;
+        Node *prev = NULL;
+        Node *curr = head;
 
-//         // Skip the nodes
-//         while (skip > 0)
-//         {
-//             prev = curr;
-//             curr = curr->next;
-//             skip--;
-//         }
+        // Skip the nodes
+        while (skip > 0)
+        {
+            prev = curr;
+            curr = curr->next;
+            skip--;
+        }
 
-//         // Change the pointers
-//         prev->next = NULL;
-//         Node *tempHead = head;
-//         head = curr;
+        // Change the pointers
+        prev->next = NULL;
+        Node *tempHead = head;
+        head = curr;
 
-//         // Find the last node
-//         while (curr->next != NULL)
-//             curr = curr->next;
+        // Find the last node
+        while (curr->next != NULL)
+            curr = curr->next;
 
-//         // Connect it to the head
-//         // of the sub list
-//         curr->next = tempHead;
-//     }
+        // Connect it to the head
+        // of the sub list
+        curr->next = tempHead;
+    }
 
-//     // Print the updated list
-//     print(head);
-// }
+    // Print the updated list
+    return head;
+}
 
+//Print the linked list
 void print(Node *head)
 {
     Node *temp = head;
@@ -205,6 +210,7 @@ void print(Node *head)
     cout << endl;
 }
 
+//Search node in a linked list
 void Search(Node *head, int Searchdata)
 {
     Node *temp = head;
@@ -220,6 +226,28 @@ void Search(Node *head, int Searchdata)
         temp = temp->next;
     }
     cout << endl;
+}
+
+Node *reverse(Node *head)
+{
+
+    if (!head)
+        return NULL;
+    Node *current = head;
+    Node *next = NULL;
+    Node *prev = NULL;
+
+    /*reverse first k nodes of the linked list */
+    while (current != NULL)
+    {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+
+    head = prev;
+    return prev;
 }
 
 int main()
@@ -239,6 +267,7 @@ int main()
     // //cout << getIndexData(head, 3) << endl;
 
     // Search(head, 15);
-    eliminateDuplicate(head);
+    // eliminateDuplicate(head);
+    head=reverse(head);
     print(head);
 }
