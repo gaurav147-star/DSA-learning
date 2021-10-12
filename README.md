@@ -36,4 +36,10 @@
     - Insertion Sort
     - Bubble Sort
 ### Day-12
- - Revise linked list and solve some problems
+ - Divide and Conquer,time complexity(master method)
+
+### Day-13
+  - practice some question on Recurrence Relation
+
+### Day-14
+ - revise linked list and practice some problem
