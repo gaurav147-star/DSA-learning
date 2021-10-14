@@ -228,6 +228,7 @@ void Search(Node *head, int Searchdata)
     cout << endl;
 }
 
+//reverse the linked list
 Node *reverse(Node *head)
 {
 
@@ -254,13 +255,13 @@ int main()
 {
     Node *head = takeInput_Better();
     print(head);
-    // int Index, data;
-    // cin >> Index >> data;
+    int Index, data;
+    cin >> Index >> data;
 
     // cout << getCountRecursively(head) << endl;
-    // //cout << getCount(head) << endl;
-    // //cout << getIndexData(head, Index) << endl;
-    // //head = insertNode(head, Index, data);
+    cout << getCount(head) << endl;
+    cout << getIndexData(head, Index) << endl;
+    head = insertNode(head, Index, data);
     // head = deleteNode(head, 3);
     // print(head);
     // //cout << getCount(head) << endl;
@@ -268,6 +269,6 @@ int main()
 
     // Search(head, 15);
     // eliminateDuplicate(head);
-    head=reverse(head);
+    
     print(head);
 }
