@@ -49,3 +49,6 @@
 
 ### Day-16
  - Insertion and deletion in Circular linked list
+
+### Day-17
+ - practice some problem in linked list
