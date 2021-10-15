@@ -32,15 +32,15 @@ Node *takeInput_Better()
 
             tail->next = newnode;
             tail = tail->next;
-            //or
-            //tail=newnode;
+            // or
+            // tail=newnode;
         }
         cin >> data;
     }
     return head;
 }
 
-//count the node of the linked list
+// count the node of the linked list
 int getCount(Node *head)
 {
     int count = 0;
@@ -53,7 +53,7 @@ int getCount(Node *head)
     return count;
 }
 
-//get the data of the particular index
+// get the data of the particular index
 int getIndexData(Node *head, int Index)
 {
     Node *temp = head;
@@ -90,12 +90,12 @@ Node *insertNode(Node *head, int Index, int data)
     }
     if (temp != NULL)
     {
-        //1st option
-        // Node *a = temp->next;
-        // temp->next = newNode;
-        // newNode->next = a;
+        // 1st option
+        //  Node *a = temp->next;
+        //  temp->next = newNode;
+        //  newNode->next = a;
 
-        //2nd option
+        // 2nd option
         newNode->next = temp->next;
         temp->next = newNode;
     }
@@ -127,7 +127,7 @@ Node *deleteNode(Node *head, int Index)
     return head;
 }
 
-//Eliminate the duplicate in the linked list
+// Eliminate the duplicate in the linked list
 void eliminateDuplicate(Node *head)
 {
     Node *t1 = head;
@@ -156,7 +156,7 @@ void eliminateDuplicate(Node *head)
     }
 }
 
-//Append last n node to first
+// Append last n node to first
 Node *updateList(Node *head, int m)
 {
 
@@ -197,8 +197,50 @@ Node *updateList(Node *head, int m)
     // Print the updated list
     return head;
 }
+Node *insertInMiddle(Node *head, int x)
+{
+    // Cpde here
+    Node *newnode = new Node(x);
+    if (head == NULL)
+    {
+        head = newnode;
+        return head;
+    }
+    int len = 0;
+    Node *temp = head;
+    while (temp != NULL)
+    {
+        len++;
+        // cout << temp->data << " ";
+        temp = temp->next;
+    }
+    // cout << endl;
+    // cout << len << endl;
+    int count;
+    if (len % 2 == 0)
+    {
+        count = len / 2;
+    }
+    else
+    {
+        count = (len + 1) / 2;
+    }
+    // cout << count << endl;
+    temp = head;
+    while (count-- > 1)
+    {
 
-//Print the linked list
+        temp = temp->next;
+        // cout << temp->data << " ";
+    }
+
+    newnode->next = temp->next;
+    temp->next = newnode;
+
+    return head;
+}
+
+// Print the linked list
 void print(Node *head)
 {
     Node *temp = head;
@@ -210,7 +252,7 @@ void print(Node *head)
     cout << endl;
 }
 
-//Search node in a linked list
+// Search node in a linked list
 void Search(Node *head, int Searchdata)
 {
     Node *temp = head;
@@ -228,7 +270,7 @@ void Search(Node *head, int Searchdata)
     cout << endl;
 }
 
-//reverse the linked list
+// reverse the linked list
 Node *reverse(Node *head)
 {
 
@@ -251,17 +293,54 @@ Node *reverse(Node *head)
     return prev;
 }
 
+Node *removeNthFromEnd(Node *head, int n)
+{
+    Node *temp = head;
+    Node *mhead = temp;
+    int count = 0;
+    while (temp != nullptr)
+    {
+        count++;
+        temp = temp->next;
+    }
+    // cout<<count<<endl;
+    temp = head;
+    Node *prev = nullptr;
+    count = count - n;
+    if (count == 0)
+    {
+        return head->next;
+    }
+    while (count > 0)
+    {
+        prev = temp;
+        temp = temp->next;
+        count--;
+    }
+    // cout<<temp->val<<endl;
+    if (temp->next == nullptr)
+    {
+        prev->next = nullptr;
+    }
+    else
+    {
+        prev->next = temp->next;
+    }
+    return mhead;
+}
+
+
 int main()
 {
     Node *head = takeInput_Better();
     print(head);
-    int Index, data;
-    cin >> Index >> data;
+    // int Index, data;
+    // cin >> Index >> data;
 
     // cout << getCountRecursively(head) << endl;
-    cout << getCount(head) << endl;
-    cout << getIndexData(head, Index) << endl;
-    head = insertNode(head, Index, data);
+    // cout << getCount(head) << endl;
+    // cout << getIndexData(head, Index) << endl;
+    // head = insertNode(head, Index, data);
     // head = deleteNode(head, 3);
     // print(head);
     // //cout << getCount(head) << endl;
@@ -269,6 +348,9 @@ int main()
 
     // Search(head, 15);
     // eliminateDuplicate(head);
-    
+    // head = insertInMiddle(head, 3);
+    int n;
+    cin >> n;
+    head = removeNthFromEnd(head, n);
     print(head);
 }
