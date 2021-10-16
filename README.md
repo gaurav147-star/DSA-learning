@@ -52,3 +52,6 @@
 
 ### Day-17
  - practice some problem in linked list
+
+### Day-18
+ - learn stack and implemented stack using array
