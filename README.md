@@ -54,4 +54,7 @@
  - practice some problem in linked list
 
 ### Day-18
- - learn stack and implemented stack using array
+ - started stack and implemented stack using array
+
+### Day-19
+ - implemented stack using linked list
