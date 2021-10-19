@@ -26,11 +26,11 @@
  - Implemented some concept of oops in some basic problems
 ### Day-8
  - Started linked list 
- ### Day-9
+### Day-9
  - Insertion and deletion in linked list 
- ### Day-10
+### Day-10
  - Practice some problems on linked list
- ### Day-11
+### Day-11
  - Sorting
     - Selection Sort
     - Insertion Sort
