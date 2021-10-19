@@ -58,3 +58,6 @@
 
 ### Day-19
  - implemented stack using linked list
+
+### Day-20
+ - learn prefix,infix and postfix
