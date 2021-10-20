@@ -60,4 +60,7 @@
  - implemented stack using linked list
 
 ### Day-20
- - learn prefix,infix and postfix
+ - learn prefix,infix
+
+### Day-21
+ - practice some problems in stack
