@@ -3,7 +3,7 @@
 using namespace std;
 
 // Number of vertices in the graph
-const int V = 6;
+const int V = 12;
 
 // Function to find the vertex with minimum key value
 int min_Key(int key[], bool visited[])

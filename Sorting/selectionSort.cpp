@@ -20,6 +20,11 @@ void selectionSort(int arr[], int n)
                 min_val = j;
             }
         }
+        // for (int i = 0; i < n; i++)
+        // {
+        //     cout << arr[i] << " ";
+        // }
+        // cout << endl;
         swap(&arr[min_val], &arr[i]);
     }
 }

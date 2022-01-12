@@ -18,53 +18,7 @@ public:
         denominator = d;
     }
 
-    void setRationalNumber(int n, int d)
-    {
-        numerator = n;
-        denominator = d;
-    }
-
-    RationalNumber addRationalNumber(RationalNumber a)
-    {
-        RationalNumber t;
-
-        t.numerator = a.numerator * denominator + a.denominator * numerator;
-        t.denominator = a.denominator * denominator;
-        t.reduction();
-        return t;
-    }
-    RationalNumber subtractRationalNumber(RationalNumber s)
-    {
-        RationalNumber t;
-
-        t.numerator = s.denominator * numerator - denominator * s.numerator;
-        t.denominator = s.denominator * denominator;
-        t.reduction();
-
-        return t;
-    }
-
-    RationalNumber multiplication(RationalNumber &m)
-    {
-        RationalNumber t;
-
-        t.numerator = m.numerator * numerator;
-        t.denominator = m.denominator * denominator;
-        t.reduction();
-
-        return t;
-    }
-
-    RationalNumber division(RationalNumber &v)
-    {
-        RationalNumber t;
-
-        t.numerator = v.denominator * numerator;
-        t.denominator = denominator * v.numerator;
-        t.reduction();
-
-        return t;
-    }
+   
     void reduction(void)
     {
         int largest = numerator > denominator ? numerator : denominator;
@@ -94,15 +48,21 @@ public:
         return *this;
     }
 
-    RationalNumber &operator/=(const RationalNumber &v)
-    {
-
-        numerator = v.denominator * numerator;
-        denominator = denominator * v.numerator;
-        this->reduction();
-        return *this;
-    }
+    friend RationalNumber &operator*=(RationalNumber &a,RationalNumber &b);
+    friend RationalNumber &operator++(RationalNumber &a);
 };
+RationalNumber &operator*=(RationalNumber &a,RationalNumber &b){
+    a.numerator=a.numerator*b.numerator;
+    a.denominator=a.denominator*b.denominator;
+    return a;
+}
+
+RationalNumber &operator++(RationalNumber &a)
+{
+    a.numerator = a.numerator + a.denominator;
+    a.denominator = a.denominator;
+    return a;
+}
 
 istream &operator>>(istream &is, RationalNumber &r)
 {
@@ -132,14 +92,14 @@ int main()
     cout << "\n"
          << "sum of rational number is ";
     /* r2.addRationalNumber(r1).print(); */
-    RationalNumber r3;
-    r3 += r1;
-    r3 += r2;
-    cout << r3 << "\n";
+    r1+=r2;
+    cout << r1 << "\n";
     cout << "\n"
-         << "division of rational number is ";
-    r2 /= r1;
-    cout << r2 << "\n";
+         << "multiply of rational number is ";
+    r1 *= r2;
+    cout << r1 << "\n";
+    ++r1;
+    cout << r1 << "\n";
 
     cout << "Program code by Gaurav Gupta & Scholar No.: 20U03030" << endl;
 
