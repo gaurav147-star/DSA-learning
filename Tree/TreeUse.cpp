@@ -102,6 +102,11 @@ void printTreeLevelWise(TreeNode<int> *root)
 
 int numNodes(TreeNode<int> *root)
 {
+    if (root == NULL)
+    {
+        return 0;
+    }
+
     int ans = 1;
     for (int i = 0; i < root->children.size(); i++)
     {
@@ -162,6 +167,96 @@ int largestData(TreeNode<int> *root)
     return num;
 }
 
+int heightOfTree(TreeNode<int> *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    int max = 0;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        cout << root->children[i]->data << endl;
+        int temp = heightOfTree(root->children[i]);
+        cout << temp << "--" << max << endl;
+        if (temp > max)
+        {
+            max = temp;
+        }
+    }
+    return max + 1;
+}
+
+void printAtLevelK(TreeNode<int> *root, int k)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    if (k == 0)
+    {
+        cout << root->data << endl;
+    }
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        printAtLevelK(root->children[i], k - 1);
+    }
+}
+
+int countLeafNodes(TreeNode<int> *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    if (root->children.size() == 0)
+    {
+        return 1;
+    }
+    int ans = 0;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        ans += countLeafNodes(root);
+    }
+    return ans;
+}
+
+void preorder(TreeNode<int> *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    cout << root->data << " ";
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        preorder(root->children[i]);
+    }
+}
+
+void postorder(TreeNode<int> *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        postorder(root->children[i]);
+    }
+    cout << root->data << " ";
+}
+
+void deleteTree(TreeNode<int> *root)
+{
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        deleteTree(root->children[i]);
+    }
+    delete root;
+}
+
 int main()
 {
     // TreeNode<int> *root = new TreeNode<int>(1);
@@ -173,10 +268,16 @@ int main()
     // TreeNode<int> *root = takeInput();
     TreeNode<int> *root = takeInputLevelWise();
     // printTree(root);
-    printTreeLevelWise(root);
+    // printTreeLevelWise(root);
+    // preorder(root);
+    postorder(root);
+
     // cout << numNodes(root) << endl;
     // cout << sumOfAllNodes(root) << endl;
-    cout << largestData(root) << endl;
+    // cout << largestData(root) << endl;
+    // cout << heightOfTree(root) << endl;
+    // printAtLevelK(root, 2);
+    // cout << countLeafNodes(root);
 
     // TODO delete tree
 }
