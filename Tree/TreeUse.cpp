@@ -257,6 +257,40 @@ void deleteTree(TreeNode<int> *root)
     delete root;
 }
 
+bool findNum(TreeNode<int> *root, int x)
+{
+    if (root->data == x)
+    {
+        return true;
+    }
+    bool res = false;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        bool result = findNum(root->children[i], x);
+        if (result != res && result == true)
+        {
+            res = result;
+        }
+    }
+
+    return res;
+}
+
+int countNodes(TreeNode<int> *root, int x)
+{
+    int ans = 0;
+    if (root->data > x)
+    {
+        ans++;
+    }
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        int res = countNodes(root, x);
+        ans += res;
+    }
+    return ans;
+}
+
 int main()
 {
     // TreeNode<int> *root = new TreeNode<int>(1);
@@ -269,8 +303,8 @@ int main()
     TreeNode<int> *root = takeInputLevelWise();
     // printTree(root);
     // printTreeLevelWise(root);
-    // preorder(root);
-    postorder(root);
+    preorder(root);
+    // postorder(root);
 
     // cout << numNodes(root) << endl;
     // cout << sumOfAllNodes(root) << endl;
@@ -278,6 +312,17 @@ int main()
     // cout << heightOfTree(root) << endl;
     // printAtLevelK(root, 2);
     // cout << countLeafNodes(root);
+    cout << endl;
+
+    // Assignment
+    if (findNum(root, 8))
+    {
+        cout << "true" << endl;
+    }
+    else
+    {
+        cout << "false" << endl;
+    }
 
     // TODO delete tree
 }
