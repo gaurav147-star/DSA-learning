@@ -176,9 +176,9 @@ int heightOfTree(TreeNode<int> *root)
     int max = 0;
     for (int i = 0; i < root->children.size(); i++)
     {
-        cout << root->children[i]->data << endl;
+        // cout << root->children[i]->data << endl;
         int temp = heightOfTree(root->children[i]);
-        cout << temp << "--" << max << endl;
+        // cout << temp << "--" << max << endl;
         if (temp > max)
         {
             max = temp;
@@ -285,10 +285,124 @@ int countNodes(TreeNode<int> *root, int x)
     }
     for (int i = 0; i < root->children.size(); i++)
     {
-        int res = countNodes(root, x);
+        int res = countNodes(root->children[i], x);
         ans += res;
     }
     return ans;
+}
+
+// TreeNode<int> *nodeWithMaximumChildSum(TreeNode<int> *root)
+// {
+//     TreeNode<int> *ans = root;
+//     int sum = root->data;
+//     for (int i = 0; i < root->children.size(); i++)
+//     {
+//         sum += root->children[i]->data;
+//     }
+
+//     for (int i = 0; i < root->children.size(); i++)
+//     {
+//         TreeNode<int> *x = nodeWithMaximumChildSum(root->children[i]);
+//         int xsum = x->data;
+//         for (int i = 0; i < x->children.size(); i++)
+//         {
+//             xsum += x->children[i]->data;
+//         }
+//         if (sum <= xsum)
+//         {
+//             sum = xsum;
+//             ans = x;
+//         }
+//     }
+//     return ans;
+// }
+
+int maxChildSum(TreeNode<int> *root)
+{
+    int sum = root->data;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        sum += root->children[i]->data;
+    }
+    return sum;
+}
+
+int nodeWithMaxSumChild(TreeNode<int> *root)
+{
+    int ans = root->data;
+    int maxsum = maxChildSum(root);
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        int xsum = maxChildSum(root->children[i]);
+        if (xsum > maxsum)
+        {
+            maxsum = xsum;
+            ans = root->children[i]->data;
+        }
+    }
+
+    return ans;
+}
+
+bool structurallyIdentical(TreeNode<int> *root, TreeNode<int> *r)
+{
+    if (r->data != root->data)
+    {
+        return 0;
+    }
+    if (root->children.size() != r->children.size())
+    {
+        return 0;
+    }
+
+    bool ans = true;
+    for (int i = 0; i < r->children.size(); i++)
+    {
+        bool xans = structurallyIdentical(root->children[i], r->children[i]);
+        if (xans == false)
+        {
+            ans = xans;
+            return ans;
+        }
+    }
+    return ans;
+}
+
+int nextLarger(TreeNode<int> *root, int x)
+{
+    int ans = 0;
+    if (root->data > x)
+    {
+        ans = root->data;
+    }
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        int temp = nextLarger(root->children[i], x);
+        if (ans == 0)
+        {
+            ans = temp;
+        }
+        if (ans > temp)
+        {
+            ans = temp;
+        }
+    }
+    return ans;
+}
+
+void replace(TreeNode<int> *root, int depth)
+{
+    root->data = depth;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        replace(root->children[i], depth + 1);
+    }
+}
+
+void replaceWithDepth(TreeNode<int> *root)
+{
+    int depth = 0;
+    replace(root, depth);
 }
 
 int main()
@@ -302,8 +416,8 @@ int main()
     // TreeNode<int> *root = takeInput();
     TreeNode<int> *root = takeInputLevelWise();
     // printTree(root);
-    // printTreeLevelWise(root);
-    preorder(root);
+    printTreeLevelWise(root);
+    // preorder(root);
     // postorder(root);
 
     // cout << numNodes(root) << endl;
@@ -315,14 +429,35 @@ int main()
     cout << endl;
 
     // Assignment
-    if (findNum(root, 8))
-    {
-        cout << "true" << endl;
-    }
-    else
-    {
-        cout << "false" << endl;
-    }
+
+    // if (findNum(root, 8))
+    // {
+    //     cout << "true" << endl;
+    // }
+    // else
+    // {
+    //     cout << "false" << endl;
+    // }
+
+    // cout << countNodes(root, 45) << endl;
+
+    // cout << nodeWithMaxSumChild(root) << endl;
+
+    // TreeNode<int> *r = takeInputLevelWise();
+    // preorder(r);
+
+    // if (structurallyIdentical(root, r))
+    // {
+    //     cout << "true" << endl;
+    // }
+    // else
+    // {
+    //     cout << "false" << endl;
+    // }
+
+    // cout << nextLarger(root, 38) << endl;
+    // replaceWithDepth(root);
+    // printTreeLevelWise(root);
 
     // TODO delete tree
 }
