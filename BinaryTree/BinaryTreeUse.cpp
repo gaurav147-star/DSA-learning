@@ -147,6 +147,81 @@ bool isNodePresent(BinaryTreeNode<int> *root, int x)
     return ans;
 }
 
+int heightOfTree(BinaryTreeNode<int> *root)
+{
+    int ans = 0;
+    if (root == NULL)
+    {
+        return 0;
+    }
+
+    int lans = heightOfTree(root->left);
+    if (lans > ans)
+    {
+        ans = lans;
+    }
+
+    int rans = heightOfTree(root->right);
+    if (rans > ans)
+    {
+        ans = rans;
+    }
+
+    return 1 + ans;
+}
+
+void mirrorBinary(BinaryTreeNode<int> *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    BinaryTreeNode<int> *temp = root->left;
+    root->left = root->right;
+    root->right = temp;
+
+    mirrorBinary(root->left);
+    mirrorBinary(root->right);
+}
+
+void preOrder(BinaryTreeNode<int> *root)
+{
+
+    if (root == NULL)
+    {
+        return;
+    }
+
+    cout << root->data << " ";
+    preOrder(root->left);
+    preOrder(root->right);
+}
+void postOrder(BinaryTreeNode<int> *root)
+{
+
+    if (root == NULL)
+    {
+        return;
+    }
+
+    postOrder(root->left);
+    postOrder(root->right);
+    cout << root->data << " ";
+}
+
+void inOrder(BinaryTreeNode<int> *root)
+{
+
+    if (root == NULL)
+    {
+        return;
+    }
+
+    inOrder(root->left);
+    cout << root->data << " ";
+    inOrder(root->right);
+}
+
 int main()
 {
     // BinaryTreeNode<int> *root = new BinaryTreeNode<int>(1);
@@ -161,12 +236,30 @@ int main()
     printTreeLevelWise(root);
     // cout << numNodes(root) << endl;
 
-    if (isNodePresent(root, 10))
-    {
-        cout << "true" << endl;
-    }
-    else
-    {
-        cout << "false" << endl;
-    }
+    // if (isNodePresent(root, 10))
+    // {
+    //     cout << "true" << endl;
+    // }
+    // else
+    // {
+    //     cout << "false" << endl;
+    // }
+
+    // cout << heightOfTree(root) << endl;
+    // mirrorBinary(root);
+    // printTreeLevelWise(root);
+
+    // preorder
+    // node->l->r
+    preOrder(root);
+
+    // postorder
+    // l->r->node
+    // postOrder(root);
+
+    // inorder
+    // l->node->r
+    // inOrder(root);
 }
+
+// 1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
