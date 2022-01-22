@@ -1,4 +1,4 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 class Node
@@ -329,8 +329,84 @@ Node *removeNthFromEnd(Node *head, int n)
     return mhead;
 }
 
-Node *palindromeLL(Node *head)
+// Node *palindromeLL(Node *head)
+// {
+// }
+
+Node *midPointLL(Node *head)
 {
+    Node *slow = head;
+    Node *fast = head->next;
+    while (fast != NULL && fast->next != NULL)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
+}
+
+Node *mergeTwoSortedLL(Node *head1, Node *head2)
+{
+    Node *head = NULL;
+    Node *tail = NULL;
+    if (head1->data <= head2->data)
+    {
+        head = head1;
+        tail = head1;
+        head1 = head1->next;
+    }
+    else
+    {
+        head = head2;
+        tail = head2;
+        head2 = head2->next;
+    }
+
+    while (head1 != NULL && head2 != NULL)
+    {
+        if (head1->data <= head2->data)
+        {
+            tail->next = head1;
+            tail = tail->next;
+            head1 = head1->next;
+        }
+        else
+        {
+            tail->next = head2;
+            tail = tail->next;
+            head2 = head2->next;
+        }
+    }
+    if (head1 == NULL)
+    {
+        tail->next = head2;
+    }
+    if (head2 == NULL)
+    {
+        tail->next = head1;
+    }
+    return head;
+}
+
+// Node *mergeSortLL(Node *head)
+// {
+// }
+
+Node *reverseLLRecursively(Node *head)
+{
+    if (head == NULL || head->next == NULL)
+    {
+        return head;
+    }
+    Node *smallans = reverseLLRecursively(head->next);
+    Node *temp = smallans;
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+    temp->next = head;
+    head->next = NULL;
+    return smallans;
 }
 
 int main()
@@ -352,8 +428,19 @@ int main()
     // Search(head, 15);
     // eliminateDuplicate(head);
     // head = insertInMiddle(head, 3);
-    int n;
-    cin >> n;
-    head = removeNthFromEnd(head, n);
+    // int n;
+    // cin >> n;
+    // head = removeNthFromEnd(head, n);
+    // print(head);
+    // Node *mid = midPointLL(head);
+    // cout << mid->data << endl;
+
+    // Node *head1 = takeInput_Better();
+    // Node *head2 = takeInput_Better();
+    // print(head1);
+    // print(head2);
+    // Node *head = mergeTwoSortedLL(head1, head2);
+    // print(head);
+    head = reverseLLRecursively(head);
     print(head);
 }

@@ -32,8 +32,8 @@ Node *takeInput_Better()
 
             tail->next = newnode;
             tail = tail->next;
-            //or
-            //tail=newnode;
+            // or
+            // tail=newnode;
         }
         cin >> data;
     }
@@ -100,15 +100,31 @@ Node *insertNode(Node *head, int Index, int data)
     }
     if (temp != NULL)
     {
-        //1st option
-        // Node *a = temp->next;
-        // temp->next = newNode;
-        // newNode->next = a;
+        // 1st option
+        //  Node *a = temp->next;
+        //  temp->next = newNode;
+        //  newNode->next = a;
 
-        //2nd option
+        // 2nd option
         newNode->next = temp->next;
         temp->next = newNode;
     }
+    return head;
+}
+
+Node *insertNodeRecursively(Node *head, int Index, int data)
+{
+    if (Index == 0)
+    {
+        Node *newNode = new Node(data);
+        newNode->next = head;
+        head = newNode;
+    }
+    if (head == NULL)
+    {
+        return head;
+    }
+    head->next = insertNodeRecursively(head->next, Index - 1, data);
     return head;
 }
 
@@ -134,6 +150,23 @@ Node *deleteNode(Node *head, int Index)
     temp->next = a->next;
     delete a;
 
+    return head;
+}
+
+Node *deleteNodeRecursively(Node *head, int Index)
+{
+    if (Index == 0)
+    {
+        Node *a = head;
+        head = a->next;
+        delete a;
+        return head;
+    }
+    if (head == NULL)
+    {
+        return head;
+    }
+    head->next = deleteNodeRecursively(head->next, Index - 1);
     return head;
 }
 
@@ -176,10 +209,12 @@ int main()
     // //cout << getCount(head) << endl;
     // //cout << getIndexData(head, Index) << endl;
     // //head = insertNode(head, Index, data);
+    // head = insertNodeRecursively(head, 3, 100);
     // head = deleteNode(head, 3);
-    // print(head);
+    head = deleteNodeRecursively(head, 3);
+    print(head);
     // //cout << getCount(head) << endl;
     // //cout << getIndexData(head, 3) << endl;
 
-    Search(head, 15);
+    // Search(head, 15);
 }
