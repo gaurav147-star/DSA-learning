@@ -12,6 +12,12 @@ public:
         next = NULL;
     }
 };
+class Pair
+{
+public:
+    Node *head;
+    Node *tail;
+};
 
 Node *takeInput_Better()
 {
@@ -409,6 +415,212 @@ Node *reverseLLRecursively(Node *head)
     return smallans;
 }
 
+Pair reverseLLRecursively_2(Node *head)
+{
+    if (head == NULL || head->next == NULL)
+    {
+        Pair ans;
+        ans.head = head;
+        ans.tail = head;
+        return ans;
+    }
+
+    Pair smallAns = reverseLLRecursively_2(head->next);
+    smallAns.tail->next = head;
+    head->next = NULL;
+    Pair ans;
+    ans.head = smallAns.head;
+    ans.tail = head;
+    return ans;
+}
+
+Node *reverseLL_Better(Node *head)
+{
+    return reverseLLRecursively_2(head).head;
+}
+
+Node *reverseLLRecursively_3(Node *head)
+{
+    if (head == NULL || head->next == NULL)
+    {
+        return head;
+    }
+    Node *smallans = reverseLLRecursively(head->next);
+    Node *tail = head->next;
+    tail->next = head;
+    head->next = NULL;
+    return smallans;
+}
+
+Node *reverseLLIteratively(Node *head)
+{
+    Node *current = head;
+    Node *n = NULL;
+    Node *prev = NULL;
+    // current->next = prev;
+    while (current != NULL)
+    {
+        n = current->next;
+        current->next = prev;
+        prev = current;
+        current = n;
+    }
+    return prev;
+}
+
+int getNodeIndexData(Node *head, int data)
+{
+    Node *temp = head;
+
+    if (temp->next == NULL)
+    {
+        return -1;
+    }
+
+    if (temp->data == data)
+    {
+        return 0;
+    }
+
+    int count = getNodeIndexData(temp->next, data);
+
+    if (count != -1)
+    {
+        return ++count;
+    }
+    else
+    {
+        return -1;
+    }
+
+    return count;
+}
+
+Node *evenAfterOddLL(Node *head)
+{
+    Node *oddH = NULL;
+    Node *oddT = NULL;
+    Node *evenH = NULL;
+    Node *evenT = NULL;
+    while (head != NULL)
+    {
+        if (head->data % 2 == 0)
+        {
+            if (evenH == NULL)
+            {
+                evenH = head;
+                evenT = head;
+            }
+            else
+            {
+                evenT->next = head;
+                evenT = evenT->next;
+            }
+        }
+        else
+        {
+            if (oddH == NULL)
+            {
+                oddH = head;
+                oddT = head;
+            }
+            else
+            {
+                oddT->next = head;
+                oddT = oddT->next;
+            }
+        }
+        head = head->next;
+    }
+    if (oddT == NULL)
+    {
+        return evenH;
+    }
+    if (evenH == NULL)
+    {
+        return oddH;
+    }
+    oddT->next = evenH;
+    return oddH;
+}
+
+Node *deleteEveryNNodes(Node *head, int M, int N)
+{
+    Node *temp = head;
+    while (temp != NULL)
+    {
+        for (int i = 0; i < M - 1; i++)
+        {
+            if (temp != NULL)
+            {
+                temp = temp->next;
+            }
+        }
+        Node *p = temp;
+        if (temp == NULL)
+        {
+            return head;
+        }
+        for (int j = 0; j < N; j++)
+        {
+
+            if (temp != NULL && temp->next != NULL && p->next != NULL)
+            {
+                p = temp->next;
+                temp->next = p->next;
+                delete (p);
+            }
+        }
+        temp = temp->next;
+    }
+    return head;
+}
+
+Node *swapTwoNodes(Node *head, int M, int N)
+{
+    Node *p = head, *q = head;
+
+    for (int index = 0; index < M; index++)
+    {
+        p = p->next;
+    }
+    for (int index = 0; index < N; index++)
+    {
+        q = q->next;
+    }
+
+    int x = p->data;
+    p->data = q->data;
+    q->data = x;
+
+    return head;
+}
+
+Node *kReverse(Node *head, int n)
+{
+    if (head == NULL || head->next == NULL)
+    {
+        return head;
+    }
+    Node *current = head;
+    Node *temp = head;
+    Node *prev = NULL;
+    int i = 0;
+    while (current != NULL && i < n)
+    {
+        temp = temp->next;
+        current->next = prev;
+        prev = current;
+        current = temp;
+        i++;
+    }
+    if (temp != NULL)
+    {
+        head->next = kReverse(temp, n);
+    }
+    return prev;
+}
+
 int main()
 {
     Node *head = takeInput_Better();
@@ -441,6 +653,28 @@ int main()
     // print(head2);
     // Node *head = mergeTwoSortedLL(head1, head2);
     // print(head);
-    head = reverseLLRecursively(head);
+    // head = reverseLLRecursively(head);
+    // head = reverseLLRecursively_3(head);
+    // head = reverseLLIteratively(head);
+    // print(head);
+
+    // int data;
+    // cin >> data;
+    // cout << getNodeIndexData(head, data) << endl;
+
+    // head = evenAfterOddLL(head);
+    // print(head);
+
+    // int M, N;
+    // cin >> M >> N;
+    // head = deleteEveryNNodes(head, M, N);
+    // print(head);
+
+    // head = swapTwoNodes(head, 3, 4);
+    // print(head);
+
+    int n;
+    cin >> n;
+    head = kReverse(head, n);
     print(head);
 }
