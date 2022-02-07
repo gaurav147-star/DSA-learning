@@ -156,6 +156,8 @@ void eliminateDuplicate(Node *head)
     }
 }
 
+
+
 // Append last n node to first
 Node *updateList(Node *head, int m)
 {

@@ -1,0 +1,48 @@
+class Solution
+{
+public:
+    vector<int> v;
+
+    vector<int> preorderTraversal(TreeNode *root)
+    {
+        if (root == nullptr)
+        {
+            return v;
+        }
+        v.push_back(root->val);
+        preorderTraversal(root->left);
+        preorderTraversal(root->right);
+        return v;
+    }
+};
+
+
+
+class Solution
+{
+public:
+    vector<int> preorderTraversal(TreeNode *root)
+    {
+        vector<int> v;
+        if (root == NULL)
+            return v;
+        stack<TreeNode *> st; // making stack of TreeNode type
+        TreeNode *curr = root;
+        while (!st.empty() || curr)
+        {
+            while (curr)
+            {
+                v.push_back(curr->val); // curr in vector
+                if (curr->right)
+                    st.push(curr->right); // push curr->right in stack
+                curr = curr->left;
+            }
+            if (!st.empty())
+            { // Leaf Node occurs so popping out the right child
+                curr = st.top();
+                st.pop();
+            }
+        }
+        return v;
+    }
+};

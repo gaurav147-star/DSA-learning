@@ -355,6 +355,19 @@ Node *mergeTwoSortedLL(Node *head1, Node *head2)
 {
     Node *head = NULL;
     Node *tail = NULL;
+    if (!head1 && !head2)
+    {
+        return nullptr;
+    }
+
+    if (!head1)
+    {
+        return head2;
+    }
+    if (!head2)
+    {
+        return head1;
+    }
     if (head1->data <= head2->data)
     {
         head = head1;
@@ -394,9 +407,60 @@ Node *mergeTwoSortedLL(Node *head1, Node *head2)
     return head;
 }
 
-// Node *mergeSortLL(Node *head)
-// {
-// }
+Node *mergeSortLL(Node *head)
+{
+
+    Node *p = head;
+
+    for (int i = 1; i < getCount(head) / 2; i++)
+    {
+        p = p->next;
+    }
+    Node *temp1 = p->next;
+    p->next = NULL;
+    if (head->next != NULL)
+    {
+        head = mergeSortLL(head);
+    }
+    if (temp1->next != NULL)
+    {
+        temp1 = mergeSortLL(temp1);
+    }
+
+    return mergeTwoSortedLL(head, temp1);
+}
+
+Node *unSortedEliminateDuplicate(Node *head)
+{
+    Node *t1 = mergeSortLL(head);
+    Node *t2 = t1;
+
+    Node *next_next;
+
+    if (t1 == NULL)
+    {
+        return NULL;
+    }
+
+    while (t1->next != NULL)
+    {
+
+        // 1 2 2 2 3 4 4
+        if (t1->data == t1->next->data)
+        {
+
+            next_next = t1->next->next;
+            free(t1->next);
+            t1->next = next_next;
+        }
+        else
+        {
+
+            t1 = t1->next;
+        }
+    }
+    return t2;
+}
 
 Node *reverseLLRecursively(Node *head)
 {
@@ -673,8 +737,10 @@ int main()
     // head = swapTwoNodes(head, 3, 4);
     // print(head);
 
-    int n;
-    cin >> n;
-    head = kReverse(head, n);
+    // int n;
+    // cin >> n;
+    // head = kReverse(head, n);
+    // print(head);
+    head = mergeSortLL(head);
     print(head);
 }
