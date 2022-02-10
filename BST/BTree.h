@@ -6,8 +6,8 @@ class BinaryTreeNode
 {
 public:
     T data;
-    BinaryTreeNode *left;
-    BinaryTreeNode *right;
+    BinaryTreeNode<T> *left;
+    BinaryTreeNode<T> *right;
 
     BinaryTreeNode(T data)
     {

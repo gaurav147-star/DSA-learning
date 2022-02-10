@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
-#include "BSTree.h"
+#include "BinarySearchTree.h"
+// #include "BTree.h"
 #include "Node.h"
+
 class Pair
 {
 public:
@@ -362,13 +364,55 @@ void print(Node<int> *head)
     }
     cout << endl;
 }
+
+vector<int> *getRootToNodePath(BinaryTreeNode<int> *root, int data)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+    if (root->data == data)
+    {
+        vector<int> *output = new vector<int>();
+        output->push_back(root->data);
+        return output;
+    }
+    vector<int> *leftoutput = getRootToNodePath(root->left, data);
+    if (leftoutput != NULL)
+    {
+        leftoutput->push_back(root->data);
+        return leftoutput;
+    }
+    vector<int> *rightoutput = getRootToNodePath(root->right, data);
+    if (rightoutput != NULL)
+    {
+        rightoutput->push_back(root->data);
+        return rightoutput;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
 int main()
 {
+    BSTtree a;
+    a.insert(10);
+    a.insert(5);
+    a.insert(20);
+    a.insert(7);
+    a.insert(15);
+    a.printTree();
+
+    a.deleteData(10);
+    a.printTree();
+
     // BinaryTreeNode<int> *root = takeInput();
-    BinaryTreeNode<int> *root = takeInputLevelWise();
+    // BinaryTreeNode<int> *root = takeInputLevelWise();
 
     // printTree(root);
-    printTreeLevelWise(root);
+    // printTreeLevelWise(root);
 
     /* if (search(root, 12))
      {
@@ -420,6 +464,13 @@ int main()
 
     // BinaryTreeNode<int> *root = constructBSTfromSortedArray(a, 0, n - 1);
     // preOrder(root);
-    Node<int> *head = constructBST(root);
-    print(head);
+    // Node<int> *head = constructBST(root);
+    // print(head);
+    // vector<int> *output = getRootToNodePath(root, 2);
+    // for (int i = 0; i < output->size(); i++)
+    // {
+    //     cout << output->at(i) << " ";
+    // }
+
+    // delete output;
 }

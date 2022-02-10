@@ -1,5 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
+typedef vector<int> vi;
+vi arr;
+int n;
+
+int check(int x, int sum)
+{
+    int tsum = 0;
+    int ans = 0;
+    for (int i = 0; i < x; i++)
+    {
+        tsum += arr[i];
+        ans++;
+        if (tsum == sum)
+        {
+            tsum = 0;
+            ans--;
+        }
+    }
+    if (tsum != 0)
+    {
+        return -1;
+    }
+    return ans;
+}
 
 int main()
 {
@@ -8,109 +32,23 @@ int main()
     while (t--)
     {
 
-        int n;
         cin >> n;
-        int v[n + 1];
+        arr.resize(n);
         for (int i = 0; i < n; i++)
         {
-            cin >> v[i];
+            cin >> arr[i];
         }
-        int ec = 0, oc = 0;
-        for (int i = 1; i <= n; i++)
+        int ans = n - 1;
+        int sum = arr[n - 1];
+        for (int i = n - 1; i > 0; i--)
         {
-            if (v[i] % 2 == 0)
+            int temp = check(i, sum);
+            if (temp != -1)
             {
-                ec++;
+                ans = min(temp + (n - 1) - i, ans);
             }
-            else
-            {
-                oc++;
-            }
+            sum += arr[i - 1];
         }
-        if (ec == n)
-        {
-            cout << " -1" << endl;
-            continue;
-        }
-        else
-        {
-            int o1 = 0, o2 = 0, e1 = 0, e2 = 0; // odd and even counts
-            for (int i = 0; i < n; i += 2)
-            {
-                if (v[i] % 2 == 0)
-                {
-                    e1++;
-                }
-                else
-                {
-                    o1++;
-                }
-            }
-            for (int i = 1; i < n; i += 2)
-            {
-                if (v[i] % 2 == 0)
-                {
-                    e2++;
-                }
-                else
-                {
-                    o2++;
-                }
-            }
-            int oprs = min(e1 + o2, e2 + o1), x = 0;
-            if (oprs == e1 + o2)
-            {
-                for (int i = 0; i < n; i += 2)
-                {
-                    if (v[i] % 2)
-                    {
-                        x = i;
-                        break;
-                    }
-                }
-                cout << oprs << endl;
-                for (int i = 0; i < n; i += 2)
-                {
-                    if (v[i] % 2 == 0)
-                    {
-                        cout << i + 1 << " " << x + 1 << endl;
-                    }
-                }
-                for (int i = 1; i < n; i + v.size() = 2)
-                {
-                    if (v[i] % 2)
-                    {
-                        cout << i + 1 << " " << x + 1 << endl;
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 1; i < n; i += 2)
-                {
-                    if (v[i] % 2)
-                    {
-                        x = i;
-                        break;
-                    }
-                }
-                cout << oprs << endl;
-                for (int i = 0; i < n; i += 2)
-                {
-                    if (v[i] % 2)
-                    {
-                        cout << i + 1 << " " << x + 1 << endl;
-                    }
-                }
-                for (int i = 1; i < n; i += 2)
-                {
-                    if (v[i] % 2 == 0)
-                    {
-                        cout << i + 1 << " " << x + 1 << endl;
-                    }
-                }
-            }
-        }
+        cout << ans << endl;
     }
-    return 0;
 }
