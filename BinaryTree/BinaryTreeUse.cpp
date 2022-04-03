@@ -559,7 +559,64 @@ vector<Node<int> *> createLLForEachLevel(BinaryTreeNode<int> *root)
     }
     return v;
 }
+vector<list<int> *> LevelOrderLL(BinaryTreeNode<int> *root)
+{
+    vector<list<int> *> v;
+    if (root == NULL)
+    {
+        return v;
+    }
+    queue<BinaryTreeNode<int> *> q;
+    q.push(root);
+    q.push(NULL);
+    int i = 0;
+    list<int> *head = NULL;
+    list<int> *tail = head;
+    while (q.size() != 0)
+    {
+        BinaryTreeNode<int> *current = q.front();
+        q.pop();
+        if (current == NULL)
+        {
 
+            if (!(q.empty()))
+            {
+                cout << endl;
+                q.push(NULL);
+                i++;
+                head = NULL;
+                tail = NULL;
+            }
+        }
+        else
+        {
+            list<int> *n;
+            n.push_back(front->data);
+            if (head == NULL)
+            {
+                head = tail = n;
+                v.push_back(head);
+            }
+            else
+            {
+                // tail->next = n;
+                tail = n;
+            }
+
+            cout << current->data << endl;
+
+            if (current->left != NULL)
+            {
+                q.push(current->left);
+            }
+            if (current->right != NULL)
+            {
+                q.push(current->right);
+            }
+        }
+    }
+    return v;
+}
 int main()
 {
     // BinaryTreeNode<int> *root = new BinaryTreeNode<int>(1);
@@ -571,7 +628,7 @@ int main()
     BinaryTreeNode<int> *root = takeInputLevelWise();
 
     // printTree(root);
-    printTreeLevelWise(root);
+    // printTreeLevelWise(root);
     // cout << numNodes(root) << endl;
     // cout << countNodes(root) << endl;
 
@@ -623,8 +680,8 @@ int main()
     // removeLeafNodes(root);
     // printTreeLevelWise(root);
     // levelOrderTraversal(root);
-    createLLForEachLevel(root);
+    // createLLForEachLevel(root);
+    LevelOrderLL(root);
 }
 
 // 1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
-

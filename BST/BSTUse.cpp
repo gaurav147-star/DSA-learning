@@ -395,24 +395,179 @@ vector<int> *getRootToNodePath(BinaryTreeNode<int> *root, int data)
     }
 }
 
+void createAndInsertDuplicate(BinaryTreeNode<int> *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    BinaryTreeNode<int> *d = new BinaryTreeNode<int>(root->data);
+    d->left = root->left;
+    root->left = d;
+    createAndInsertDuplicate(d->left);
+    createAndInsertDuplicate(root->right);
+}
+
+void btToarr(BinaryTreeNode<int> *root, vector<int> &v)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+    v.push_back(root->data);
+    btToarr(root->left, v);
+    btToarr(root->right, v);
+}
+void pairSumBinary(BinaryTreeNode<int> *root, int s)
+{
+    vector<int> v;
+    btToarr(root, v);
+    sort(v.begin(), v.end());
+
+    int i = 0, j = v.size() - 1;
+    while (i < j)
+    {
+        if (v[i] + v[j] == s)
+        {
+            cout << v[i] << " " << v[j] << endl;
+            int ci = 1, cj = 1;
+            int x, y;
+            x = i + 1;
+            if (v[x] == v[i])
+            {
+                ci++;
+                x++;
+            }
+            y = j - 1;
+            if (v[y] == v[j])
+            {
+                cj++;
+                x--;
+            }
+            i += ci;
+            j -= cj;
+        }
+        else if (v[i] + v[j] > s)
+        {
+            j--;
+        }
+        else
+        {
+            i++;
+        }
+    }
+}
+
+// int lcaOfBT(BinaryTreeNode<int> *root, int x, int y)
+// {
+//     if (root == NULL)
+//     {
+//         return NULL;
+//     }
+//     if (root->data == x || root->data == y)
+//     {
+//         return root->data;
+//     }
+//     int leftlca = lcaOfBT(root->left, x, y);
+//     int rightlca = lcaOfBT(root->right, x, y);
+
+//     if (leftlca == NULL && rightlca == NULL)
+//     {
+//         return NULL;
+//     }
+//     else if (leftlca == NULL && rightlca != NULL)
+//     {
+//         return rightlca;
+//     }
+//     else if (leftlca != NULL && rightlca == NULL)
+//     {
+//         return leftlca;
+//     }
+//     else
+//     {
+//         return root->data;
+//     }
+// }
+
+class isLArBST
+{
+public:
+    bool isBST;
+    int minimum;
+    int maximum;
+    int height;
+};
+isLArBST largestBST(BinaryTreeNode<int> *root)
+{
+    if (root == NULL)
+    {
+        isLArBST output;
+        output.isBST = true;
+        output.minimum = INT_MAX;
+        output.maximum = INT_MIN;
+        output.height = 0;
+        return output;
+    }
+    isLArBST leftOutput = largestBST(root->left);
+    isLArBST righttOutput = largestBST(root->right);
+    int minimum = min(root->data, min(leftOutput.minimum, righttOutput.minimum));
+    int maximum = max(root->data, max(leftOutput.maximum, righttOutput.maximum));
+    bool isBSTFinal = (root->data > leftOutput.maximum) && (root->data <= righttOutput.minimum) && leftOutput.isBST && righttOutput.isBST;
+    isLArBST output;
+    output.isBST = isBSTFinal;
+    output.minimum = minimum;
+    output.maximum = maximum;
+    if (isBSTFinal)
+    {
+        output.height = 1 + max(leftOutput.height, righttOutput.height);
+    }
+    else
+    {
+        output.height = max(leftOutput.height, righttOutput.height);
+    }
+
+    return output;
+}
+
+int SumOfGreaterNodes(BinaryTreeNode<int> *root, int &sum)
+{
+    if (root == NULL)
+    {
+        return sum;
+    }
+
+    SumOfGreaterNodes(root->right, sum);
+    sum += root->data;
+    root->data = sum;
+    sum = SumOfGreaterNodes(root->left, sum);
+    return sum;
+}
+
+void replaceWithSumOfGreaterNodes(BinaryTreeNode<int> *root)
+{
+    int sum = 0;
+    SumOfGreaterNodes(root, sum);
+}
+
 int main()
 {
-    BSTtree a;
-    a.insert(10);
-    a.insert(5);
-    a.insert(20);
-    a.insert(7);
-    a.insert(15);
-    a.printTree();
+    // BSTtree a;
+    // a.insert(10);
+    // a.insert(5);
+    // a.insert(20);
+    // a.insert(7);
+    // a.insert(15);
+    // a.printTree();
 
-    a.deleteData(10);
-    a.printTree();
+    // a.deleteData(10);
+    // a.printTree();
 
     // BinaryTreeNode<int> *root = takeInput();
-    // BinaryTreeNode<int> *root = takeInputLevelWise();
+    BinaryTreeNode<int> *root = takeInputLevelWise();
 
     // printTree(root);
-    // printTreeLevelWise(root);
+    printTreeLevelWise(root);
 
     /* if (search(root, 12))
      {
@@ -473,4 +628,16 @@ int main()
     // }
 
     // delete output;
+    // cout << endl;
+    // createAndInsertDuplicate(root);
+    // printTreeLevelWise(root);
+    // pairSumBinary(root, 15);
+    // cout << lcaOfBT(root, 2, 6) << endl;
+
+    // isLArBST p = largestBST(root);
+
+    // cout << p.height << endl;
+
+    replaceWithSumOfGreaterNodes(root);
+    printTreeLevelWise(root);
 }
