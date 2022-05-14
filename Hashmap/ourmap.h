@@ -28,13 +28,13 @@ template <typename V>
 class ourmap
 {
     MapNode<V> **buckets;
-    int size;
+    int count;
     int numBuckets;
 
 public:
     ourmap()
     {
-        size = 0;
+        count = 0;
         numBuckets = 5;
         buckets = new MapNode<V> *[numBuckets];
 
@@ -61,7 +61,7 @@ public:
 
     V getValue(string key)
     {
-        int bucketIndex = getBucketIndex(string key);
+        int bucketIndex = getBucketIndex(key);
         MapNode<V> *head = buckets[bucketIndex];
         while (head != NULL)
         {
@@ -90,10 +90,48 @@ private:
         return hashcode % numBuckets;
     }
 
+    void rehash()
+    {
+        MapNode<V> **temp = buckets;
+        buckets = new MapNode<V> *[2 * numBuckets];
+        for (int i = 0; i < 2 * numBuckets; i++)
+        {
+            buckets[i] = NULL;
+        }
+
+        int oldBucketCount = numBuckets;
+        numBuckets *= 2;
+        count = 0;
+
+        for (int i = 0; i < oldBucketCount; i++)
+        {
+            MapNode<V> *head = temp[i];
+            while (head != NULL)
+            {
+                string key = head->key;
+                V value = head->value;
+                insert(key, value);
+                head = head->next;
+            }
+        }
+
+        for (int i = 0; i < oldBucketCount; i++)
+        {
+            MapNode<V> *head = temp[i];
+            delete head;
+        }
+
+        delete[] temp;
+    }
+
 public:
+    double getLoadFactor()
+    {
+        return (((1.0) * (count)) / numBuckets);
+    }
     void insert(string key, V value)
     {
-        int bucketIndex = getBucketIndex(string key);
+        int bucketIndex = getBucketIndex(key);
         MapNode<V> *head = buckets[bucketIndex];
         while (head != NULL)
         {
@@ -110,11 +148,16 @@ public:
         node->next = head;
         buckets[bucketIndex] = node;
         count++;
+        double loadFactor = ((1.0 * count) / numBuckets);
+        if (loadFactor > 0.7)
+        {
+            rehash();
+        }
     }
 
     V remove(string key)
     {
-        int bucketIndex = getBucketIndex(string key);
+        int bucketIndex = getBucketIndex(key);
         MapNode<V> *head = buckets[bucketIndex];
         MapNode<V> *prev = NULL;
 
