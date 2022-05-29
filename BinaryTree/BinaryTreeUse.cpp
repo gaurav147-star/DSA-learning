@@ -211,6 +211,43 @@ void mirrorBinary(BinaryTreeNode<int> *root)
     mirrorBinary(root->right);
 }
 
+void Mirror_Binary_Tree(BinaryTreeNode<int> *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    queue<BinaryTreeNode<int> *> q;
+    q.push(root);
+    q.push(NULL);
+    while (q.size() != 0)
+    {
+        BinaryTreeNode<int> *front = q.front();
+        q.pop();
+        if (front == NULL)
+        {
+            if (q.size() == 0)
+            {
+                return;
+            }
+            cout << endl;
+            q.push(NULL);
+        }
+        else
+        {
+            cout << front->data << " ";
+            if (front->right != NULL)
+            {
+                q.push(front->right);
+            }
+            if (front->left != NULL)
+            {
+                q.push(front->left);
+            }
+        }
+    }
+}
+
 void preOrder(BinaryTreeNode<int> *root)
 {
 
@@ -379,32 +416,32 @@ int sumOfNodes(BinaryTreeNode<int> *root)
     return sum;
 }
 
-bool balanced(BinaryTreeNode<int> *root)
-{
+// bool balanced(BinaryTreeNode<int> *root)
+// {
 
-    if (root == NULL)
-    {
-        return 0;
-    }
-    int lans = 1, rans = 1;
-    if (root->left)
-    {
-        lans += heightOfTree(root->left);
-    }
-    if (root->right)
-    {
-        rans += heightOfTree(root->right);
-    }
-    cout << lans << " " << rans << endl;
-    if (lans == rans)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
+//     if (root == NULL)
+//     {
+//         return 0;
+//     }
+//     int lans = 1, rans = 1;
+//     if (root->left)
+//     {
+//         lans += heightOfTree(root->left);
+//     }
+//     if (root->right)
+//     {
+//         rans += heightOfTree(root->right);
+//     }
+//     cout << lans << " " << rans << endl;
+//     if (lans == rans)
+//     {
+//         return 1;
+//     }
+//     else
+//     {
+//         return 0;
+//     }
+// }
 
 BinaryTreeNode<int> *removeLeafNodes(BinaryTreeNode<int> *root)
 {
@@ -462,6 +499,24 @@ void levelOrderTraversal(BinaryTreeNode<int> *root)
         }
     }
 }
+bool isBalanced(BinaryTreeNode<int> *root)
+{
+
+    if (root == NULL)
+    {
+        return 1;
+    }
+    int l = heightOfTree(root->left);
+    int r = heightOfTree(root->right);
+
+    if ((abs(l - r) == 0 || abs(l - r) == 1) && isBalanced(root->left) && isBalanced(root->right))
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
 // void printLevelOrder(BinaryTree<int> *root)
 // {
 //     if (root == NULL)
@@ -559,64 +614,64 @@ vector<Node<int> *> createLLForEachLevel(BinaryTreeNode<int> *root)
     }
     return v;
 }
-vector<list<int> *> LevelOrderLL(BinaryTreeNode<int> *root)
-{
-    vector<list<int> *> v;
-    if (root == NULL)
-    {
-        return v;
-    }
-    queue<BinaryTreeNode<int> *> q;
-    q.push(root);
-    q.push(NULL);
-    int i = 0;
-    list<int> *head = NULL;
-    list<int> *tail = head;
-    while (q.size() != 0)
-    {
-        BinaryTreeNode<int> *current = q.front();
-        q.pop();
-        if (current == NULL)
-        {
+// vector<list<int> *> LevelOrderLL(BinaryTreeNode<int> *root)
+// {
+//     vector<list<int> *> v;
+//     if (root == NULL)
+//     {
+//         return v;
+//     }
+//     queue<BinaryTreeNode<int> *> q;
+//     q.push(root);
+//     q.push(NULL);
+//     int i = 0;
+//     list<int> *head = NULL;
+//     list<int> *tail = head;
+//     while (q.size() != 0)
+//     {
+//         BinaryTreeNode<int> *current = q.front();
+//         q.pop();
+//         if (current == NULL)
+//         {
 
-            if (!(q.empty()))
-            {
-                cout << endl;
-                q.push(NULL);
-                i++;
-                head = NULL;
-                tail = NULL;
-            }
-        }
-        else
-        {
-            list<int> *n;
-            n.push_back(front->data);
-            if (head == NULL)
-            {
-                head = tail = n;
-                v.push_back(head);
-            }
-            else
-            {
-                // tail->next = n;
-                tail = n;
-            }
+//             if (!(q.empty()))
+//             {
+//                 cout << endl;
+//                 q.push(NULL);
+//                 i++;
+//                 head = NULL;
+//                 tail = NULL;
+//             }
+//         }
+//         else
+//         {
+//             list<int> *n;
+//             n.push_back(front->data);
+//             if (head == NULL)
+//             {
+//                 head = tail = n;
+//                 v.push_back(head);
+//             }
+//             else
+//             {
+//                 // tail->next = n;
+//                 tail = n;
+//             }
 
-            cout << current->data << endl;
+//             cout << current->data << endl;
 
-            if (current->left != NULL)
-            {
-                q.push(current->left);
-            }
-            if (current->right != NULL)
-            {
-                q.push(current->right);
-            }
-        }
-    }
-    return v;
-}
+//             if (current->left != NULL)
+//             {
+//                 q.push(current->left);
+//             }
+//             if (current->right != NULL)
+//             {
+//                 q.push(current->right);
+//             }
+//         }
+//     }
+//     return v;
+// }
 int main()
 {
     // BinaryTreeNode<int> *root = new BinaryTreeNode<int>(1);
@@ -668,7 +723,7 @@ int main()
     // cout << p.first << " " << p.second << endl;
 
     // cout << sumOfNodes(root) << endl;
-    // if (balanced(root))
+    // if (isBalanced(root))
     // {
     //     cout << "true" << endl;
     // }
@@ -681,7 +736,8 @@ int main()
     // printTreeLevelWise(root);
     // levelOrderTraversal(root);
     // createLLForEachLevel(root);
-    LevelOrderLL(root);
+    // LevelOrderLL(root);
+    Mirror_Binary_Tree(root);
 }
 
 // 1 2 3 4 5 6 7 -1 -1 -1 -1 -1 -1 -1 -1
