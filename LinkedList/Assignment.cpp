@@ -156,8 +156,6 @@ void eliminateDuplicate(Node *head)
     }
 }
 
-
-
 // Append last n node to first
 Node *updateList(Node *head, int m)
 {
@@ -331,10 +329,47 @@ Node *removeNthFromEnd(Node *head, int n)
     return mhead;
 }
 
-Node *palindromeLL(Node *head)
-{
-}
+Node *mid(Node *head)
 
+{
+
+    Node *fast = head->next;
+    Node *slow = head;
+
+    if (head == NULL || head->next == NULL)
+        return head;
+    else
+    {
+
+        while (fast != NULL && fast->next != NULL)
+        {
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+    }
+    return slow;
+}
+bool check_palindrome(Node *head)
+
+{
+    Node *m = mid(head);
+    
+    Node *r = reverse(m);
+
+    while (head != NULL)
+    {
+        if (head->data != r->data)
+        {
+            return false;
+        }
+        else
+        {
+            head = head->next;
+            r = r->next;
+        }
+    }
+    return true;
+}
 int main()
 {
     Node *head = takeInput_Better();
@@ -354,8 +389,9 @@ int main()
     // Search(head, 15);
     // eliminateDuplicate(head);
     // head = insertInMiddle(head, 3);
-    int n;
-    cin >> n;
-    head = removeNthFromEnd(head, n);
-    print(head);
+    // int n;
+    // cin >> n;
+    // head = removeNthFromEnd(head, n);
+    // print(head);
+    cout << check_palindrome(head) << endl;
 }
