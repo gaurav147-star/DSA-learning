@@ -244,6 +244,65 @@ bool isConnected(int **edges, int n)
     return true;
 }
 
+void allConnectedBFSHelper(int **edges, int n, int sv, bool *visited, vector<int> &v)
+{
+    queue<int> q;
+    q.push(sv);
+    visited[sv] = true;
+
+    while (!q.empty())
+    {
+        int front = q.front();
+        v.push_back(front);
+        q.pop();
+        for (int i = 0; i < n; i++)
+        {
+            if (front == i)
+            {
+                continue;
+            }
+            if (edges[front][i] == 1)
+            {
+                if (visited[i])
+                {
+                    continue;
+                }
+                q.push(i);
+                visited[i] = true;
+            }
+        }
+    }
+}
+
+void allConnected(int **edges, int n)
+{
+    bool *visited = new bool[n];
+    for (int i = 0; i < n; i++)
+    {
+        visited[i] = false;
+    }
+    vector<vector<int>> ans;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (!visited[i])
+        {
+            vector<int> v;
+            allConnectedBFSHelper(edges, n, i, visited, v);
+            ans.push_back(v);
+        }
+    }
+
+    for (int i = 0; i < ans.size(); i++)
+    {
+        for (int j = 0; j < ans[i].size(); j++)
+        {
+            cout << ans[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
 int main()
 {
     int n, e;
@@ -328,16 +387,18 @@ int main()
     // }
 
     // IsConnected
-    if (isConnected(edges, n))
-    {
-        cout << "true" << endl;
-    }
-    else
-    {
-        cout << "false" << endl;
-    }
+    // if (isConnected(edges, n))
+    // {
+    //     cout << "true" << endl;
+    // }
+    // else
+    // {
+    //     cout << "false" << endl;
+    // }
 
     // delete[] visited;
+
+    allConnected(edges, n);
     for (int i = 0; i < n; i++)
     {
         delete[] edges[i];
