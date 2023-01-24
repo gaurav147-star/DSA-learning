@@ -225,6 +225,25 @@ bool getPathBFS(int **edges, int n, bool *visited, int x, int y, unordered_map<i
     return false;
 }
 
+bool isConnected(int **edges, int n)
+{
+    bool *visited = new bool[n];
+    for (int i = 0; i < n; i++)
+    {
+        visited[i] = false;
+    }
+
+    print_DFS(edges, n, 1, visited);
+    for (int i = 0; i < n; i++)
+    {
+        if (!visited[i])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 int main()
 {
     int n, e;
@@ -247,11 +266,11 @@ int main()
         edges[s][f] = 1;
     }
 
-    bool *visited = new bool[n];
-    for (int i = 0; i < n; i++)
-    {
-        visited[i] = false;
-    }
+    // bool *visited = new bool[n];
+    // for (int i = 0; i < n; i++)
+    // {
+    //     visited[i] = false;
+    // }
 
     // Connected Graph
 
@@ -295,20 +314,30 @@ int main()
 
     // Get Path BFS
 
-    unordered_map<int, int> up;
-    getPathBFS(edges, n, visited, x, y, up);
+    // unordered_map<int, int> up;
+    // getPathBFS(edges, n, visited, x, y, up);
 
-    if (visited[y])
+    // if (visited[y])
+    // {
+    //     while (y != x)
+    //     {
+    //         cout << y << " ";
+    //         y = up[y];
+    //     }
+    //     cout << x << " ";
+    // }
+
+    // IsConnected
+    if (isConnected(edges, n))
     {
-        while (y != x)
-        {
-            cout << y << " ";
-            y = up[y];
-        }
-        cout << x << " ";
+        cout << "true" << endl;
+    }
+    else
+    {
+        cout << "false" << endl;
     }
 
-    delete[] visited;
+    // delete[] visited;
     for (int i = 0; i < n; i++)
     {
         delete[] edges[i];
