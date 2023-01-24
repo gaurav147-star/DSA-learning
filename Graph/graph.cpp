@@ -138,8 +138,83 @@ bool ishasPathBFS(int **edges, int n, bool *visited, int x, int y)
             if (edges[x][i] == 1)
             {
                 if (!visited[i])
+                {
                     q.push(i);
-                visited[i] = true;
+                    visited[i] = true;
+                }
+            }
+        }
+        if (x == y)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool getPathDFS(int **edges, int n, bool *visited, int x, int y, vector<int> &v)
+{
+    if (x == y)
+    {
+        v.push_back(x);
+        return true;
+    }
+    bool ans = false;
+    visited[x] = true;
+    for (int i = 0; i < n; i++)
+    {
+        if (x == i)
+        {
+            continue;
+        }
+        if (edges[x][i] == 1)
+        {
+            if (visited[i])
+            {
+                continue;
+            }
+            ans = getPathDFS(edges, n, visited, i, y, v);
+        }
+        if (ans)
+        {
+            v.push_back(x);
+            return true;
+        }
+    }
+
+    return ans;
+}
+
+bool getPathBFS(int **edges, int n, bool *visited, int x, int y, unordered_map<int, int> &up)
+{
+
+    if (x == y)
+        return true;
+    queue<int> q;
+    q.push(x);
+    visited[x] = true;
+    while (!q.empty())
+    {
+        x = q.front();
+        q.pop();
+        for (int i = 0; i < n; i++)
+        {
+            if (x == i)
+            {
+                continue;
+            }
+            if (edges[x][i] == 1)
+            {
+                if (!visited[i])
+                {
+                    q.push(i);
+                    up[i] = x;
+                    visited[i] = true;
+                    if (up.count(i) == 0)
+                    {
+                        up[i] = x;
+                    }
+                }
             }
         }
         if (x == y)
@@ -171,18 +246,18 @@ int main()
         edges[f][s] = 1;
         edges[s][f] = 1;
     }
+
+    bool *visited = new bool[n];
+    for (int i = 0; i < n; i++)
+    {
+        visited[i] = false;
+    }
+
     // Connected Graph
-    // bool *visited = new bool[n];
-    // for (int i = 0; i < n; i++)
-    // {
-    //     visited[i] = false;
-    // }
+
     // cout << "DFS" << endl;
     // print_DFS(edges, n, 0, visited);
-    // for (int i = 0; i < n; i++)
-    // {
-    //     visited[i] = false;
-    // }
+
     // cout << "BFS" << endl;
     // print_BFS(edges, n, 0, visited);
 
@@ -198,19 +273,39 @@ int main()
     int x, y;
     cin >> x >> y;
 
-    bool *visited = new bool[n];
-    for (int i = 0; i < n; i++)
-    {
-        visited[i] = false;
-    }
     // if (ishasPathBFS(edges, n, visited, x, y))
-    if (ishasPathDFS(edges, n, visited, x, y))
+    // if (ishasPathDFS(edges, n, visited, x, y))
+    // {
+    //     cout << "true" << endl;
+    // }
+    // else
+    // {
+    //     cout << "false" << endl;
+    // }
+
+    // Get Path DFS
+
+    // vector<int> v;
+    // getPathDFS(edges, n, visited, x, y, v);
+
+    // for (int i = 0; i < v.size(); i++)
+    // {
+    //     cout << v[i] << " ";
+    // }
+
+    // Get Path BFS
+
+    unordered_map<int, int> up;
+    getPathBFS(edges, n, visited, x, y, up);
+
+    if (visited[y])
     {
-        cout << "true" << endl;
-    }
-    else
-    {
-        cout << "false" << endl;
+        while (y != x)
+        {
+            cout << y << " ";
+            y = up[y];
+        }
+        cout << x << " ";
     }
 
     delete[] visited;
